@@ -113,6 +113,8 @@ soporte ≈ 0.246 | confianza ≈ 0.745 | lift ≈ 2.238
 
 Esto significa que aproximadamente el 74.5% de las viviendas clasificadas como de precio alto también están clasificadas como de área grande. El lift mayor que 1 indica una asociación positiva respecto a la frecuencia general de `area_grande`. No implica causalidad y, dado que `houses.csv` no registra compras, debe interpretarse como co-ocurrencia de características inmobiliarias.
 
+El notebook incluye además un mapa de calor donde cada fila representa el 100% de una categoría de precio y se divide entre áreas pequeñas, medianas y grandes. Esta visualización facilita comparar directamente la asociación entre tamaño y precio.
+
 ## Estructura del proyecto
 
 ```text

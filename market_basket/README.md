@@ -40,6 +40,8 @@ jupyter notebook market_basket/market_basket_apriori.ipynb
 
 El notebook imprime las mejores reglas, filtra reglas relacionadas con precio y área y genera gráficas de soporte-confianza y lift.
 
+También genera un mapa de calor final donde cada fila suma 100% y muestra qué proporción de cada categoría de precio corresponde a áreas pequeñas, medianas o grandes. La celda `Precio alto / Área grande` permite interpretar visualmente la confianza de la regla `precio_alto -> area_grande`.
+
 ## Interpretación responsable
 
 Este dataset es inmobiliario y no contiene transacciones de compra reales. Por eso el análisis no afirma que un cliente compre una vivienda por comprar otra característica. Las reglas describen **co-ocurrencias entre atributos de viviendas**. La asociación entre precio alto y área grande puede ser consistente con los datos, pero no demuestra que una variable cause la otra.

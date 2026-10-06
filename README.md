@@ -92,6 +92,27 @@ df["area_log"] = np.log1p(df["area(m2)"])
 
 La transformación logarítmica reduce la asimetría y la influencia de los precios más altos. No sustituye la variable original.
 
+## Actividad adicional: Market Basket Analysis
+
+La actividad de reglas de asociación se encuentra separada en [market_basket/](market_basket/), para no mezclarla con el análisis de valores atípicos.
+
+El notebook [market_basket_apriori.ipynb](market_basket/market_basket_apriori.ipynb):
+
+- Convierte cada vivienda en una transacción de atributos.
+- Categoriza precio, área, habitaciones y baños.
+- Aplica el algoritmo Apriori.
+- Calcula soporte, confianza y lift.
+- Filtra y grafica reglas relacionadas con precio y área.
+
+Con los umbrales actuales, la asociación más destacada es:
+
+```text
+precio_alto → area_grande
+soporte ≈ 0.246 | confianza ≈ 0.745 | lift ≈ 2.238
+```
+
+Esto significa que aproximadamente el 74.5% de las viviendas clasificadas como de precio alto también están clasificadas como de área grande. El lift mayor que 1 indica una asociación positiva respecto a la frecuencia general de `area_grande`. No implica causalidad y, dado que `houses.csv` no registra compras, debe interpretarse como co-ocurrencia de características inmobiliarias.
+
 ## Estructura del proyecto
 
 ```text
@@ -109,6 +130,9 @@ La transformación logarítmica reduce la asimetría y la influencia de los prec
 ├── mxl.shp
 ├── mxl.shx
 ├── main.ipynb
+├── market_basket/
+│   ├── market_basket_apriori.ipynb
+│   └── README.md
 ├── requirements.txt
 ├── .gitignore
 └── README.md

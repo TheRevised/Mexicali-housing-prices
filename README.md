@@ -31,9 +31,54 @@ El notebook genera:
 - Strip plot donde cada punto representa una vivienda.
 - Histogramas del precio en escala normal y logarítmica.
 - Gráfica de dispersión entre precio y área.
+- Mapa coroplético independiente del precio mediano por zona.
+- Mapa coroplético independiente del área mediana para localizar las viviendas más grandes.
+- Mapa coroplético independiente de la cantidad de viviendas observadas por zona.
 - Tabla con las viviendas de precio más alto.
 
 Los precios se muestran en millones de pesos en las gráficas para mejorar su legibilidad.
+
+## Galería de resultados
+
+Las siguientes imágenes se generan directamente a partir de `main.ipynb` y se incluyen para facilitar la revisión del proyecto en GitHub.
+
+### Precios atípicos
+
+El análisis utiliza los **940 registros**, incluidos los 52 precios identificados como atípicos. Los valores atípicos se resaltan en rojo, pero no se eliminan.
+
+![Precio y valores atípicos](figures/precio-atipicos.png)
+
+![Distribución del precio](figures/distribucion-precio.png)
+
+![Relación entre precio y área](figures/precio-vs-area.png)
+
+### Mapas de Mexicali
+
+Los mapas utilizan la geometría de `mxl.shp`. Las zonas sin registros aparecen en gris.
+
+#### Precio mediano por zona
+
+![Precio mediano por zona](figures/mapa-1.png)
+
+#### Tamaño mediano de las viviendas
+
+![Tamaño mediano por zona](figures/mapa-2.png)
+
+#### Concentración de viviendas observadas
+
+![Viviendas observadas por zona](figures/mapa-3.png)
+
+## Mapas territoriales
+
+El proyecto utiliza `mxl.shp` como geometría principal para los mapas de Mexicali. El archivo fue proporcionado para el proyecto y contiene 97 polígonos, pero no incluye atributos de código postal. Por ello, el notebook usa `data/baja_california_postal.geojson` únicamente como capa auxiliar para transferir espacialmente los datos resumidos por código postal hacia los polígonos de `mxl.shp`. La fuente de la capa auxiliar es [open-mexico/mexico-geojson](https://github.com/open-mexico/mexico-geojson).
+
+El archivo `mxl.shx` es el índice espacial reconstruido automáticamente a partir del SHP. El notebook también puede regenerarlo si no existe. Debido a que el SHP no trae una tabla `.dbf`, el mapa trabaja con la geometría y no muestra nombres de zonas.
+
+- El mapa de precios usa el **precio mediano** transferido a las zonas de `mxl.shp`, una medida robusta frente a valores atípicos.
+- El mapa de concentración usa la cantidad de viviendas/anuncios presentes en `houses.csv`.
+- Solo se colorean las zonas a las que se pudo asignar espacialmente un código postal con datos; las restantes aparecen como “Sin registros”.
+
+Este dataset no incluye población censal; por eso el segundo mapa no afirma dónde vive más gente, sino dónde hay más viviendas observadas en la muestra. Para medir habitantes sería necesario incorporar una fuente censal adicional.
 
 ## Transformaciones
 
@@ -52,7 +97,17 @@ La transformación logarítmica reduce la asimetría y la influencia de los prec
 ```text
 .
 ├── data/
-│   └── houses.csv
+│   ├── houses.csv
+│   └── baja_california_postal.geojson
+├── figures/
+│   ├── precio-atipicos.png
+│   ├── distribucion-precio.png
+│   ├── precio-vs-area.png
+│   ├── mapa-1.png
+│   ├── mapa-2.png
+│   └── mapa-3.png
+├── mxl.shp
+├── mxl.shx
 ├── main.ipynb
 ├── requirements.txt
 ├── .gitignore
@@ -96,4 +151,3 @@ Los registros que quedan fuera de esos límites se marcan como posibles atípico
 ## Reproducibilidad
 
 El notebook fija la semilla utilizada para el desplazamiento visual de los puntos (`seed = 42`) y calcula todos los límites directamente a partir de `data/houses.csv`. Esto permite volver a ejecutar el análisis y obtener resultados consistentes.
-# Mexicali-housing-prices
